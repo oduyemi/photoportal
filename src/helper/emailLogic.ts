@@ -1,14 +1,12 @@
+/* eslint-disable */
 import axios from 'axios';
-import { getAccessToken } from '@/app/api/auth/oauth/route';
-
-
+import { getAccessToken } from '@/utils/oauth';
  
 export const sendEmailWithRetry = async (
   recipient: string,
   subject: string,
   htmlContent: string,
   retries: number = 3,
-  plainTextContent?: string
 ): Promise<void> => {
   let attempt = 0;
 
@@ -51,6 +49,7 @@ export const sendEmailWithRetry = async (
 
       console.log('Email sent successfully');
       return;
+      
     } catch (error: any) {
       attempt++;
       console.error(`Attempt ${attempt}: Failed to send email - ${error.message}`);

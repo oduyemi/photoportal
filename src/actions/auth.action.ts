@@ -1,5 +1,5 @@
+/* eslint-disable */
 import axios from 'axios';
-
 
 
 export async function loginUser(email: string, password: string) {

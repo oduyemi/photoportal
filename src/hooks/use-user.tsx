@@ -1,6 +1,6 @@
 import { useUser } from "@/context/UserContext";
 
-const DashboardHeader = () => {
+export const DashboardHeader = () => {
   const { user, loading } = useUser();
 
   if (loading) return <p>Loading...</p>;

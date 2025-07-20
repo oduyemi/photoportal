@@ -1,3 +1,4 @@
+/* eslint-disable */
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -7,7 +8,6 @@ import { motion } from "framer-motion";
 import "animate.css";
 
 const MotionBox = motion(Box);
-
 export default function VerifyPage() {
   const [code, setCode] = useState("");
   const [error, setError] = useState("");

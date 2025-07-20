@@ -2,10 +2,9 @@
 import React from "react";
 import {
   Box,
-  Flex,
   Image,
   Text,
-  Heading,
+  // Heading,
   Badge,
   Stack,
   Divider,
@@ -48,7 +47,7 @@ function formatBirthday(dateStr: string) {
 }
 
 export const ProfileCard: React.FC<ProfileCardProps> = ({ user }) => {
-  const fullName = `${user.firstName} ${user.lastName}`;
+  // const fullName = `${user.firstName} ${user.lastName}`;
   const bg = useColorModeValue("white", "gray.800");
   const textColor = useColorModeValue("gray.700", "gray.200");
   const cardShadow = useColorModeValue("xs", "dark-xs");

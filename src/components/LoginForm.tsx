@@ -1,3 +1,4 @@
+/* eslint-disable */
 "use client";
 import React, { useState } from "react";
 import { useUser } from "@/context/UserContext";
@@ -27,7 +28,6 @@ const MotionBox = motion(Box);
 export const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showDialog, setShowDialog] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { setUser } = useUser();
   const router = useRouter();

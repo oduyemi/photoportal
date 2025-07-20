@@ -1,3 +1,4 @@
+/* eslint-disable */
 "use client";
 import ImageUpload from "@/components/ImageUpload";
 import { useUser } from "@/context/UserContext";

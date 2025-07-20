@@ -12,8 +12,6 @@ import {
   DrawerCloseButton,
   DrawerBody,
   Button,
-  Link as ChakraLink,
-  Heading,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";

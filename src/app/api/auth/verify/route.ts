@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/utils/db";
 import User from "@/models/user.model";

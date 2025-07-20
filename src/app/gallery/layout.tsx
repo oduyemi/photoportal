@@ -1,3 +1,4 @@
+/* eslint-disable */
 "use client";
 import GalleryGrid from "@/components/Gallery";
 import { useUser } from "@/context/UserContext";

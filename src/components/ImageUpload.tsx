@@ -7,9 +7,7 @@ import {
   VStack,
   Text,
   useToast,
-  Icon,
   Image,
-  Stack,
   Flex,
 } from '@chakra-ui/react';
 import { FaUpload, FaRedo } from 'react-icons/fa';
