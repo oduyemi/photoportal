@@ -67,7 +67,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ user }) => {
       transition={{ duration: 0.5 }}
     >
       <Stack spacing={4} align="center" textAlign="center">
-        <Heading size="lg">{fullName}</Heading>
+        {/* <Heading size="lg">{fullName}</Heading> */}
         <Text fontSize="sm" color="gray.500">
           {user.email}
         </Text>
