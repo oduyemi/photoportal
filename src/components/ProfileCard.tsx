@@ -58,7 +58,6 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ user }) => {
       p={6}
       maxW={{ base: "90%", sm: "500px" }}
       mx="auto"
-      mt={5}
       borderWidth="1px"
       borderRadius="2xl"
       boxShadow={cardShadow}

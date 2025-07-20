@@ -26,7 +26,7 @@ export default function VerifyPage() {
 
       if (res.status === 200) {
         setSuccess("✅ Verification successful! Redirecting...");
-        setTimeout(() => router.push("/get-started"), 2000);
+        setTimeout(() => router.push("/dashboard"), 2000);
       }
     } catch (err: any) {
       setError(err.response?.data?.error || "Verification failed. Try again.");

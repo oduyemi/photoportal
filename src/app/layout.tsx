@@ -59,7 +59,7 @@ const ClientSideLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    const publicRoutes = ["/", "/get-started"];
+    const publicRoutes = ["/", "/get-started", "/verify"];
     const isPublic = publicRoutes.includes(pathname);
 
     if (!loading && !user && !isPublic) {
