@@ -9,9 +9,6 @@ import {
   Input,
   Text,
   VStack,
-  Alert,
-  AlertIcon,
-  AlertTitle,
   useToast,
 } from "@chakra-ui/react";
 import axios from "axios";

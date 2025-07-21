@@ -2,11 +2,13 @@
 import axios from 'axios';
 import { getAccessToken } from '@/utils/oauth';
  
+
+
 export const sendEmailWithRetry = async (
   recipient: string,
   subject: string,
   htmlContent: string,
-  retries: number = 3,
+  retries: number = 3
 ): Promise<void> => {
   let attempt = 0;
 
@@ -26,14 +28,8 @@ export const sendEmailWithRetry = async (
               emailAddress: { address: recipient },
             },
           ],
-          from: {
-            emailAddress: {
-              address: process.env.EMAIL_USERNAME, 
-              name: 'LinkOrgNet', 
-            },
-          },
         },
-        saveToSentItems: 'false',
+        saveToSentItems: false,
       };
 
       await axios.post(
@@ -47,19 +43,19 @@ export const sendEmailWithRetry = async (
         }
       );
 
-      console.log('Email sent successfully');
+      console.log('✅ Email sent successfully');
       return;
-      
+
     } catch (error: any) {
       attempt++;
       console.error(`Attempt ${attempt}: Failed to send email - ${error.message}`);
 
       if (attempt >= retries) {
-        console.error(`Attempt ${attempt}:`, error?.response?.data || error.message);
+        console.error(`Final error:`, error?.response?.data || error.message);
         throw new Error('Failed to send email after multiple attempts');
       }
 
-      console.log(`Retrying email sending... Attempt ${attempt + 1}`);
+      console.log(`🔁 Retrying email... (Attempt ${attempt + 1})`);
     }
   }
 };

@@ -67,13 +67,13 @@ export const GetStarted: React.FC = () => {
 
       toast({
         title: "Registration successful!",
-        description: "Redirecting to dashboard...",
+        description: "Redirecting to login...",
         status: "success",
         duration: 3000,
         isClosable: true,
       });
 
-      window.location.href = "/dashboard";
+      window.location.href = "/";
 
     } catch (error: any) {
       toast({

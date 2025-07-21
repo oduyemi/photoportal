@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Image,
@@ -18,6 +18,8 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+
 
 const MotionBox = motion(Box);
 
@@ -54,10 +56,16 @@ function formatBirthday(dateStr: string) {
 export const ProfileCard: React.FC<ProfileCardProps> = ({ user }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
+  const router = useRouter();
   const bg = useColorModeValue("white", "gray.900");
   const textColor = useColorModeValue("gray.700", "gray.100");
   const borderColor = useColorModeValue("gray.200", "gray.700");
+
+  useEffect(() => {
+  if (!user.emailVerified) {
+    router.push("/verify");
+  }
+}, [user.emailVerified, router]);
 
   const handleImageClick = (url: string) => {
     setSelectedImage(url);
