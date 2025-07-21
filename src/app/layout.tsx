@@ -12,6 +12,8 @@ import Script from "next/script";
 import { UserProvider, useUser } from "@/context/UserContext";
 import { useEffect } from "react";
 
+
+
 export default function RootLayout({
   children,
 }: {

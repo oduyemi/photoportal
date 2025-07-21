@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 import User from '@/models/user.model';
 import { dbConnect } from '@/utils/db';
+import cloudinary from '@/utils/cloudinary';
+import path from 'path';
+import streamifier from 'streamifier';
 
 export async function POST(req: NextRequest) {
   try {
@@ -44,27 +45,23 @@ export async function POST(req: NextRequest) {
 
     // Extract username from email
     const username = user.email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '');
-    const fileName = `${username}${index + 1}${fileExtension}`;
-    const publicDir = path.join(process.cwd(), 'public', 'uploads');
-    const filePath = path.join(publicDir, fileName);
-    const imageUrl = `/uploads/${fileName}`;
+    const publicId = `${username}${index + 1}`;
 
-    // Ensure uploads directory exists
-    if (!fs.existsSync(publicDir)) {
-      fs.mkdirSync(publicDir, { recursive: true });
-    }
-
-    // Remove old image if exists
-    const existingImageUrl = user.images[index];
-    if (existingImageUrl) {
-      const oldImagePath = path.join(process.cwd(), 'public', existingImageUrl);
-      if (fs.existsSync(oldImagePath)) {
-        fs.unlinkSync(oldImagePath);
-      }
-    }
-
-    // Save the new image file
-    fs.writeFileSync(filePath, buffer);
+    // Upload to Cloudinary using stream
+    const imageUrl = await new Promise<string>((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: 'user-uploads',
+          public_id: publicId,
+          overwrite: true,
+        },
+        (error, result) => {
+          if (error || !result) return reject(error);
+          resolve(result.secure_url);
+        }
+      );
+      streamifier.createReadStream(buffer).pipe(uploadStream);
+    });
 
     // Update user images
     user.images[index] = imageUrl;
