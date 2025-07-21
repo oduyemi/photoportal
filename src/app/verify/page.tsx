@@ -26,6 +26,7 @@ export default function VerifyPage() {
 
       if (res.status === 200) {
         setSuccess("✅ Verification successful! Redirecting...");
+        router.refresh(); 
         setTimeout(() => router.push("/dashboard"), 3000);
       }
     } catch (err: any) {
