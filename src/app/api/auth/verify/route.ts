@@ -58,6 +58,7 @@ export async function POST(req: NextRequest) {
     });
 
     return res;
+
   } catch (err: any) {
     if (err.name === "TokenExpiredError") {
       return NextResponse.json({ error: "Session expired. Please log in again." }, { status: 401 });

@@ -62,6 +62,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ user }) => {
   const borderColor = useColorModeValue("gray.200", "gray.700");
 
   useEffect(() => {
+    router.refresh();
   if (!user.emailVerified) {
     router.push("/verify");
   }
