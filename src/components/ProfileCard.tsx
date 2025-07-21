@@ -63,6 +63,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ user }) => {
 
   useEffect(() => {
     router.refresh();
+    router.refresh();
   if (!user.emailVerified) {
     router.push("/verify");
   }
