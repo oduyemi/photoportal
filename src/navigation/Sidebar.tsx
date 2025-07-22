@@ -85,11 +85,10 @@ export const Sidebar: React.FC = () => {
         display={{ base: "flex", md: "none" }}
         p={4}
         justify="space-between"
-        align="center"
+        align="start"
         bg="white"
         borderBottom="1px solid #eee"
       >
-        <Text fontWeight="bold" fontSize="lg">Dashboard</Text>
         <IconButton icon={<FiMenu />} aria-label="Open menu" onClick={onOpen} variant="outline" />
       </Flex>
 

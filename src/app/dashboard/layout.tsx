@@ -23,7 +23,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <Flex bg={bg} minH="100vh">
       <Sidebar />
-
       <Box ml={{ base: 0, md: 64 }} p={6} w="full">
         <MotionBox
           initial={{ opacity: 0, y: 10 }}
