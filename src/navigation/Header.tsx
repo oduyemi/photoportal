@@ -21,7 +21,7 @@ export const Header = () => {
       animate={{ y: 0, opacity: 1 }}
     >
       <Flex align="center">
-        <Link href="/" style={{ textDecoration: "none" }} className="d-none d-md-block">
+        <Link href="/" style={{ textDecoration: "none" }}>
             <Image 
                 src="/images/logo/logo.svg" 
                 alt="Logo" 
