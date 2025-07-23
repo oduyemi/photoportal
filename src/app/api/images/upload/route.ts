@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const file = formData.get('image') as File;
-    const replaceIndex = Number(formData.get('replaceIndex')); // 0 or 1
+    const replaceIndex = Number(formData.get('replaceIndex'));
     const userId = formData.get('userId') as string;
 
     if (!file || !userId) {
@@ -17,7 +17,6 @@ export async function POST(req: NextRequest) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const fileExtension = path.extname(file.name).toLowerCase();
 
     await dbConnect();
     const user = await User.findById(userId);
@@ -29,25 +28,28 @@ export async function POST(req: NextRequest) {
       user.images = [];
     }
 
-    // Determine the index to use
+    // Extract username from email
+    const username = user.email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '');
+
     let index: number;
+
     if (!isNaN(replaceIndex) && (replaceIndex === 0 || replaceIndex === 1)) {
+      // Replacing image
       index = replaceIndex;
     } else {
+      // Adding new image
       if (user.images.length >= 2) {
         return NextResponse.json({ error: 'Image limit reached' }, { status: 400 });
       }
+      // Find first available index (0 or 1)
       index = user.images[0] ? (user.images[1] ? -1 : 1) : 0;
       if (index === -1) {
         return NextResponse.json({ error: 'No available image slot' }, { status: 400 });
       }
     }
 
-    // Extract username from email
-    const username = user.email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '');
     const publicId = `${username}${index + 1}`;
 
-    // Upload to Cloudinary using stream
     const imageUrl = await new Promise<string>((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
@@ -63,7 +65,7 @@ export async function POST(req: NextRequest) {
       streamifier.createReadStream(buffer).pipe(uploadStream);
     });
 
-    // Update user images
+    // Save or replace image in user's image array
     user.images[index] = imageUrl;
     await user.save();
 
