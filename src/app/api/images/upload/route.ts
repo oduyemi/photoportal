@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import User from '@/models/user.model';
 import { dbConnect } from '@/utils/db';
 import cloudinary from '@/utils/cloudinary';
-import path from 'path';
+// import path from 'path';
 import streamifier from 'streamifier';
 
 export async function POST(req: NextRequest) {
@@ -33,18 +33,16 @@ export async function POST(req: NextRequest) {
 
     let index: number;
 
+    // ✅ Safe logic AFTER user is available
     if (!isNaN(replaceIndex) && (replaceIndex === 0 || replaceIndex === 1)) {
-      // Replacing image
       index = replaceIndex;
     } else {
-      // Adding new image
-      if (user.images.length >= 2) {
+      if (!user.images[0]) {
+        index = 0;
+      } else if (!user.images[1]) {
+        index = 1;
+      } else {
         return NextResponse.json({ error: 'Image limit reached' }, { status: 400 });
-      }
-      // Find first available index (0 or 1)
-      index = user.images[0] ? (user.images[1] ? -1 : 1) : 0;
-      if (index === -1) {
-        return NextResponse.json({ error: 'No available image slot' }, { status: 400 });
       }
     }
 
@@ -65,7 +63,6 @@ export async function POST(req: NextRequest) {
       streamifier.createReadStream(buffer).pipe(uploadStream);
     });
 
-    // Save or replace image in user's image array
     user.images[index] = imageUrl;
     await user.save();
 
