@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import User from '@/models/user.model';
 import { dbConnect } from '@/utils/db';
 import cloudinary from '@/utils/cloudinary';
-// import path from 'path';
+import path from 'path';
 import streamifier from 'streamifier';
 
 export async function POST(req: NextRequest) {
